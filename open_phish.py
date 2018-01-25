@@ -195,9 +195,4 @@ class renzo:
 
 if __name__ == "__main__":
      test = renzo()
-     # test.Work()
-     # schedule.every(1).minutes.do(test.Work)
-     schedule.every().day.at("7:00").do(test.Work)
-     while True:
-         schedule.run_pending()
-         time.sleep(1)
+     test.Work()

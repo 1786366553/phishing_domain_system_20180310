@@ -224,8 +224,5 @@ IP 63.143.33.122 = AS46475 = Limestone Networks, Inc.&nbsp;</td>
 
 if __name__ == "__main__":
      test = renzo()
-     schedule.every().day.at("12:00").do(test.Work)
-     #schedule.every(1).minutes.do(test.Work)
-     while True:
-          schedule.run_pending()
-          time.sleep(1)
+     test.Work()
+    

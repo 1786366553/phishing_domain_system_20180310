@@ -11,12 +11,12 @@ from email.mime.text import MIMEText
 from email.header import Header
 
 
-class renzo:
+class renzo_aa:
     t = ""
     title = ""
     number = 0
     def GetTime(self):
-         renzo.t = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+         renzo_aa.t = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
          title = datetime.datetime.now().strftime("%Y-%m-%d")
 
 
@@ -100,7 +100,7 @@ class renzo:
                    info = re.findall(getinfo,content)
                    #print info
               except:
-                   renzo.SaveError(self,id)
+                   renzo_aa.SaveError(self,id)
                    return False
 
          return info[0]
@@ -200,29 +200,32 @@ IP 63.143.33.122 = AS46475 = Limestone Networks, Inc.&nbsp;</td>
 
     def Job(self):
          filename = "id.txt"
-         renzo.GetTime(self)
+         renzo_aa.GetTime(self)
          #print renzo.GetInfo(self,1)
-         pre_id=renzo.GetPreId(self,filename)
-         new_id=renzo.GetNumber(self)
-         flag_diff=renzo.JudgeDiff(self,pre_id,new_id)
-         renzo.WriteNewId(self,filename,new_id)
-         renzo.SendEmail(self,pre_id,new_id)
+         pre_id=renzo_aa.GetPreId(self,filename)
+         new_id=renzo_aa.GetNumber(self)
+         flag_diff=renzo_aa.JudgeDiff(self,pre_id,new_id)
+         renzo_aa.WriteNewId(self,filename,new_id)
+         renzo_aa.SendEmail(self,pre_id,new_id)
          if(flag_diff==1 and new_id>pre_id ):
               for i in range(pre_id+1,new_id+1):
                    if(i>pre_id):
-                        info = renzo.GetInfo(self,i)
+                        info = renzo_aa.GetInfo(self,i)
                         if info != False:
-                             renzo.Insert(self,info)
+                             renzo_aa.Insert(self,info)
 
 
     def Work(self):#工作main函数
           try:
-               renzo.Job(self)
+               renzo_aa.Job(self)
           except:
-               renzo.Work(self)
+               renzo_aa.Work(self)
 
 
 if __name__ == "__main__":
-     test = renzo()
-     test.Work()
-    
+     test = renzo_aa()
+     schedule.every().day.at("12:00").do(test.Work)
+     #schedule.every(1).minutes.do(test.Work)
+     while True:
+          schedule.run_pending()
+          time.sleep(1)

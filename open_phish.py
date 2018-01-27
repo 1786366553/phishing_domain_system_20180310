@@ -98,7 +98,7 @@ class renzo_op:
                 domain = temp.lstrip("www.")
             else:
                 domain = temp
-                renzo_op.domains.append(domain)
+            renzo_op.domains.append(domain)
 
 
     def TurnDomain(self):  # url转domain
@@ -111,7 +111,7 @@ class renzo_op:
                 urlcut = urlparse.urlparse(url)
                 temp = urlcut.netloc
                 domain = temp
-                renzo_op.domains.append(domain)
+            renzo_op.domains.append(domain)
 
 
     def Insert(self):  # 插入数据

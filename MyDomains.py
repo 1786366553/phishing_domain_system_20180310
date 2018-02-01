@@ -13,6 +13,10 @@ import datetime
 from ssl import cert_time_to_seconds
 from warnings import catch_warnings
 from pytz import HOUR
+global MalResponse
+global JoeResponse
+global CybResponse
+global HostsResponse
 
 
 def fresh1(line):
@@ -94,6 +98,7 @@ def joewein(cur,conn):  #
     except Exception as e:
       print  "joewein打开失败"
     f = JoeResponse.readlines()
+    JoeResponse.close()
     count=0
     NewUrls = set()
     for line in f:
@@ -121,6 +126,7 @@ def cybercrime(cur,conn):  # cybercrime
         print
         "cybercrime打开失败"
     f = CybResponse.readlines()
+    CybResponse.close()
     count=0
     NewUrls=set()
     for line in f:
@@ -147,6 +153,7 @@ def hosts(cur, conn):
         print
         "host download failed"
     f = HostsResponse.readlines()
+    HostsResponse.close()
     NewUrls=set()
     count = 0
     for line in f:
@@ -173,6 +180,7 @@ def malware(cur,conn):
     except Exception as e:
         print "malware打开失败"
     f = MalResponse.readlines()
+    MalResponse.close()
     count=0
     NewUrls=set()
     for line in f:

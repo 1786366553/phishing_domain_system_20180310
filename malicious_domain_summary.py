@@ -44,8 +44,8 @@ def now_date():
 
 
 def domain_summary():
-    nowtime = str(now_date())[0:19]
-    gettime = str(get_date(7))[0:19]
+    gettime = str(now_date())[0:19]
+    nowtime = str(get_date(7))[0:19]
     mysql_handle("aa419",nowtime,gettime)
     mysql_handle("cybercrime_tracker", nowtime, gettime)
     mysql_handle("hosts_domains", nowtime, gettime)
@@ -56,3 +56,4 @@ def domain_summary():
     mysql_handle("phishing_tank", nowtime, gettime)
     mysql_handle("vvx", nowtime, gettime)
     mysql_handle("weekly_domains", nowtime, gettime)
+    mysql_handle("anquanlianmeng",nowtime,gettime)

@@ -22,7 +22,7 @@ def phishing_gz_download():
 def id_list(db, line):  # 获取phishing_id字段，以判断是插入或是更新
     cursor = db.cursor()
     cursor.execute("select phish_id from phishing_tank")
-    data = cursor.fetch()
+    data = cursor.fetchall()
     return data
 
 
@@ -107,6 +107,11 @@ def phishing_update_main():  # 主程序入口，同时设定时间：每小时�
             continue
         else:
             continue
+
+
+def phishing_update():
+    phishing_gz_download()
+    mysql_handle()
 
 
 if __name__ == "__main__":

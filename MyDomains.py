@@ -14,7 +14,7 @@ from ssl import cert_time_to_seconds
 from warnings import catch_warnings
 from pytz import HOUR
 global MalResponse
-global JoeResponse
+#global JoeResponse
 global CybResponse
 global HostsResponse
 
@@ -209,14 +209,14 @@ def job1():
     conn.close()
 
 
-def job2():
-    conn = MySQLdb.connect(host='172.29.152.249', port=3306, user='root', passwd='platform',
-                           db='malicious_domain_collection', charset='utf8')
-    cur = conn.cursor()
-    joewein(cur,conn)
-    cur.close()
-    conn.commit()
-    conn.close()
+#def job2():
+#    conn = MySQLdb.connect(host='172.29.152.249', port=3306, user='root', passwd='platform',
+#                           db='malicious_domain_collection', charset='utf8')
+ #   cur = conn.cursor()
+  #  joewein(cur,conn)
+   # cur.close()
+   # conn.commit()
+   # conn.close()
 
 
 def job3():#Ϊhosts_domainsд������
@@ -245,6 +245,5 @@ def job4():#Ϊnew_cybercrime_trackerд������
 # schduler.add_job(job2,minute=2);
 # schduler.start()
 job1()
-job2()
 job3()
 job4()

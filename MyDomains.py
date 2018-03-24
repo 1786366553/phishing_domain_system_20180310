@@ -200,7 +200,7 @@ def malware(cur,conn):
 
 
 def job1():
-    conn = MySQLdb.connect(host='172.29.152.249', port=3306, user='root', passwd='platform',
+    conn = MySQLdb.connect(host='10.245.146.39', port=3306, user='root', passwd='platform',
                            db='malicious_domain_collection', charset='utf8')
     cur = conn.cursor()
     malware(cur,conn)
@@ -210,7 +210,7 @@ def job1():
 
 
 #def job2():
-#    conn = MySQLdb.connect(host='172.29.152.249', port=3306, user='root', passwd='platform',
+#    conn = MySQLdb.connect(host='10.245.146.39', port=3306, user='root', passwd='platform',
 #                           db='malicious_domain_collection', charset='utf8')
  #   cur = conn.cursor()
   #  joewein(cur,conn)
@@ -220,7 +220,7 @@ def job1():
 
 
 def job3():#Ϊhosts_domainsд������
-    conn = MySQLdb.connect(host='172.29.152.249', port=3306, user='root', passwd='platform',
+    conn = MySQLdb.connect(host='10.245.146.39', port=3306, user='root', passwd='platform',
                            db='malicious_domain_collection', charset='utf8')
     cur = conn.cursor()
     hosts(cur, conn)
@@ -230,7 +230,7 @@ def job3():#Ϊhosts_domainsд������
 
 
 def job4():#Ϊnew_cybercrime_trackerд������
-    conn = MySQLdb.connect(host='172.29.152.249', port=3306, user='root', passwd='platform',
+    conn = MySQLdb.connect(host='10.245.146.39', port=3306, user='root', passwd='platform',
                            db='malicious_domain_collection', charset='utf8')
     cur = conn.cursor()
     cybercrime(cur,conn)

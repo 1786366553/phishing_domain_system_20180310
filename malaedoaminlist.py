@@ -95,7 +95,7 @@ class renzo:
            #《输入》数据库信息-《输出》txt文件 filename2
           renzo.filename2 = renzo.t + "-data.txt"
           #ip, user, password, dbname, charset = 'localhost', 'root', 'Shareck', 'renzotest', 'utf8'
-          ip, user, password, dbname, charset = '172.29.152.249', 'root', 'platform', 'malicious_domain_collection', 'utf8'
+          ip, user, password, dbname, charset = '10.245.146.39', 'root', 'platform', 'malicious_domain_collection', 'utf8'
           conn = MySQLdb.connect(host=ip, user=user, passwd=password, db=dbname, charset=charset)
           cur = conn.cursor()
           cur.execute("select url from malaedomainlist")

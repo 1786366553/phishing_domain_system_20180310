@@ -48,7 +48,7 @@ class renzo_op:
         #《输入》数据库信息-《输出》txt文件 filename2
         renzo_op.filename2 = renzo_op.t + "-data.txt"
         #ip, user, password, dbname, charset = 'localhost', 'root', 'Shareck', 'renzotest', 'utf8'
-        ip, user, password, dbname, charset = '172.29.152.249', 'root', 'platform', 'malicious_domain_collection', 'utf8'
+        ip, user, password, dbname, charset = '10.245.146.39', 'root', 'platform', 'malicious_domain_collection', 'utf8'
         conn = MySQLdb.connect(
             host=ip, user=user, passwd=password, db=dbname, charset=charset)
         cur = conn.cursor()
@@ -117,7 +117,7 @@ class renzo_op:
     def Insert(self):  # 插入数据
         #《输入》数据库信息-《输出》数据库插入数据
         #ip, user, password, dbname, charset = 'localhost', 'root', 'Shareck', 'renzotest', 'utf8'
-        ip, user, password, dbname, charset = '172.29.152.249', 'root', 'platform', 'malicious_domain_collection', 'utf8'
+        ip, user, password, dbname, charset = '10.245.146.39', 'root', 'platform', 'malicious_domain_collection', 'utf8'
         #ip, user, password, dbname, charset = '47.100.47.14', 'root', 'Shareck', 'renzotest', 'utf8'
         conn = MySQLdb.connect(
             host=ip, user=user, passwd=password, db=dbname, charset=charset)

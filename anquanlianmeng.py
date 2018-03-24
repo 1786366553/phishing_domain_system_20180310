@@ -26,7 +26,7 @@ def url_extract(url):
 def pattern():
     #second =sleeptime(0,2,0)
     # time.sleep(second)
-    con = MySQLdb.connect(host='172.29.152.249',
+    con = MySQLdb.connect(host='10.245.146.39',
                           port=3306,
                           user='root',
                           passwd='platform',

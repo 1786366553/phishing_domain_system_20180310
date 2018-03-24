@@ -108,7 +108,7 @@ class renzo_aa:
 
     def Insert(self,infomation):
          #ip, user, password, dbname, charset = 'localhost', 'root', 'Shareck', 'renzotest', 'utf8'
-         ip, user, password, dbname, charset = '172.29.152.249', 'root', 'platform', 'malicious_domain_collection', 'utf8'
+         ip, user, password, dbname, charset = '10.245.146.39', 'root', 'platform', 'malicious_domain_collection', 'utf8'
          conn = MySQLdb.connect(host=ip, user=user, passwd=password, db=dbname, charset=charset)
          cur = conn.cursor()
          cur.execute("insert into aa419(url, domain, insert_time, site_name, scam_type, site_ip, as_number, email) values(%s, %s, %s, %s, %s, %s, %s, %s)", (infomation[0], infomation[1], datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), infomation[2], infomation[3], infomation[4], infomation[5], infomation[6]))

@@ -93,7 +93,7 @@ def mysql_insert(page,cursor,db):
 
 def mysql_handle():
     db = MySQLdb.connect(
-        "172.29.152.249 ", "root", "platform", "malicious_domain_collection")
+        "10.245.146.39", "root", "platform", "malicious_domain_collection")
     cursor = db.cursor()
     page_count = 0
     insert(page_count, cursor, db)

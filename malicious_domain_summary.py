@@ -57,3 +57,4 @@ def domain_summary():
     mysql_handle("vvx", nowtime, gettime)
     mysql_handle("weekly_domains", nowtime, gettime)
     mysql_handle("anquanlianmeng",nowtime,gettime)
+    mysql_handle("malwaredb_malekal_domains", nowtime, gettime)

@@ -10,7 +10,7 @@ def mysql_handle(table,time_limit_left,time_limit_right):
     timeArray_limit_right = time.strptime(time_limit_right, "%Y-%m-%d %H:%M:%S")
     timeStamp_limit_right = int(time.mktime(timeArray_limit_right))
     db = MySQLdb.connect(
-        "172.29.152.249 ", "root", "platform", "malicious_domain_collection")
+        "10.245.146.39", "root", "platform", "malicious_domain_collection")
     cursor = db.cursor()
     sql = "select domain,insert_time from " + table
     cursor.execute(sql)

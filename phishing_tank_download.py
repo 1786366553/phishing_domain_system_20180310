@@ -75,7 +75,7 @@ def mysql_handle():  # mysql操作
         phishing_gz_download()
         mysql_handle()
     db = MySQLdb.connect(
-        "172.29.152.249 ", "root", "platform", "malicious_domain_collection")
+        "10.245.146.39 ", "root", "platform", "malicious_domain_collection")
     cursor = db.cursor()
     update_count = 0
     insert_count = 0

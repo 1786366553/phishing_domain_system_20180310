@@ -13,10 +13,7 @@ import datetime
 from ssl import cert_time_to_seconds
 from warnings import catch_warnings
 from pytz import HOUR
-global MalResponse
-#global JoeResponse
-global CybResponse
-global HostsResponse
+import tldextract
 
 
 def fresh1(line):
@@ -41,6 +38,15 @@ def fresh2(line):
     return s
 
 
+def url_extract(url):
+    domain_extract = tldextract.extract(url).domain
+    suffix = tldextract.extract(url).suffix
+    if not suffix:
+        insert = domain_extract
+        return insert
+    else:
+        insert = domain_extract + '.' + suffix
+        return insert
 def fresh3(line):
     number1 = int(line.find(' '))
     s = line[number1 + 1:len(line)]
@@ -65,6 +71,7 @@ def urlsfind(cur, table, urls1):
     length = len(rows)
     return length
 
+
 def urlread(cur,table):
     cur.execute("select url from " + str(table))
     OldUrls=set()
@@ -73,6 +80,8 @@ def urlread(cur,table):
         for line1 in line:
             OldUrls.add(line1)
     return  OldUrls
+
+
 def urlsread(cur,table):
     cur.execute("select urls from " + str(table))
     rows=cur.fetchall()
@@ -81,6 +90,8 @@ def urlsread(cur,table):
         for line1 in line:
             Oldurls.add(line1)
     return  Oldurls
+
+
 def urlsinsert(cur, table, urls, domains, mal_type):
     nowtime = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     cur.execute(
@@ -96,7 +107,7 @@ def joewein(cur,conn):  #
     try:
         JoeResponse = urllib2.urlopen(req, timeout=1000)
     except Exception as e:
-      print  "joewein打开失败"
+      return 
     f = JoeResponse.readlines()
     JoeResponse.close()
     count=0
@@ -109,7 +120,7 @@ def joewein(cur,conn):  #
     UpdateUrls = AllUrls - OldUrls
     for line in UpdateUrls:
         if count<1000:
-            domains = fresh2(line)
+            domains = url_extract(line)
             urlsinsert(cur, 'weekly_domains', line, domains, 'spam domains')
             count=count+1
         else:
@@ -123,8 +134,7 @@ def cybercrime(cur,conn):  # cybercrime
     try:
         CybResponse = urllib2.urlopen(req, timeout=1000)
     except Exception as e:
-        print
-        "cybercrime打开失败"
+        return
     f = CybResponse.readlines()
     CybResponse.close()
     count=0
@@ -137,12 +147,13 @@ def cybercrime(cur,conn):  # cybercrime
     UpdateUrls = AllUrls - OldUrls
     for line in UpdateUrls:
         if count<1000:
-            domains = fresh1(line)
+            domains = url_extract(line)
             urlsinsert(cur, 'cybercrime_tracker', line, domains,"cibercrime")
             count=count+1
         else:
             conn.commit()
             count=0
+
 
 def hosts(cur, conn):
     req = urllib2.Request('https://hosts.ubuntu101.co.za/hosts')
@@ -150,8 +161,7 @@ def hosts(cur, conn):
     try:
         HostsResponse = urllib2.urlopen(req, timeout=10000)
     except Exception as e:
-        print
-        "host download failed"
+        return
     f = HostsResponse.readlines()
     HostsResponse.close()
     NewUrls=set()
@@ -165,20 +175,23 @@ def hosts(cur, conn):
     UpdateUrls = AllUrls - OldUrls
     for line in UpdateUrls:
         if count<1000:
-           domains = fresh3(line)
+           domains = url_extract(line)
            urlinsert(cur, 'hosts_domains', line, domains, 'malicious')
            count=count+1
         else:
             conn.commit()
             count=0
 
+
 def malware(cur,conn):
     req = urllib2.Request('http://malwaredomains.lehigh.edu/files/justdomains')
     global MalResponse
     try:
+        print
+        "Request打开"
         MalResponse = urllib2.urlopen(req, timeout=100)
     except Exception as e:
-        print "malware打开失败"
+        return
     f = MalResponse.readlines()
     MalResponse.close()
     count=0
@@ -191,7 +204,7 @@ def malware(cur,conn):
     UpdateUrls=AllUrls-OldUrls
     for line in UpdateUrls:
         if count<1000:
-            domains = fresh1(line)
+            domains = url_extract(line)
             urlsinsert(cur, 'malware_domains', line, domains, "malware")
             count=count+1
         else:
@@ -209,17 +222,17 @@ def job1():
     conn.close()
 
 
-#def job2():
-#    conn = MySQLdb.connect(host='10.245.146.39', port=3306, user='root', passwd='platform',
-#                           db='malicious_domain_collection', charset='utf8')
- #   cur = conn.cursor()
-  #  joewein(cur,conn)
-   # cur.close()
-   # conn.commit()
-   # conn.close()
+def job2():
+    conn = MySQLdb.connect(host='10.245.146.39', port=3306, user='root', passwd='platform',
+                           db='malicious_domain_collection', charset='utf8')
+    cur = conn.cursor()
+    joewein(cur,conn)
+    cur.close()
+    conn.commit()
+    conn.close()
 
 
-def job3():#Ϊhosts_domainsд������
+def job3():#Ϊhosts_domains
     conn = MySQLdb.connect(host='10.245.146.39', port=3306, user='root', passwd='platform',
                            db='malicious_domain_collection', charset='utf8')
     cur = conn.cursor()
@@ -229,7 +242,7 @@ def job3():#Ϊhosts_domainsд������
     conn.close()
 
 
-def job4():#Ϊnew_cybercrime_trackerд������
+def job4():#Ϊnew_cybercrime_tracker
     conn = MySQLdb.connect(host='10.245.146.39', port=3306, user='root', passwd='platform',
                            db='malicious_domain_collection', charset='utf8')
     cur = conn.cursor()
@@ -238,12 +251,10 @@ def job4():#Ϊnew_cybercrime_trackerд������
     conn.commit()
     conn.close()
 
+
 # schduler=BackgroundScheduler()
 # schduler.add_job(job1,trigger='cron',hour='23',minute='00',second='00')
 # schduler.add_job(job2,'cron',day_of_week='sat',hour=23,minute=00,second=00)
 # schduler.add_job(job1,minute=1);
 # schduler.add_job(job2,minute=2);
 # schduler.start()
-job1()
-job3()
-job4()
